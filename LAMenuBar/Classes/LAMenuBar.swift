@@ -27,13 +27,11 @@ extension UIView {
 
 public final class LAMenuBar: UIView {
   
-  let cellIdentifier = "cellIdentifier"
-  
   lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.cellIdentifier)
+    cv.register(MenuCell.self, forCellWithReuseIdentifier: MenuCell.identifier)
     
     cv.dataSource = self
     cv.delegate = self
@@ -70,7 +68,9 @@ extension LAMenuBar: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell else { fatalError() }
+    
+    
     cell.backgroundColor = indexPath.row % 2 == 0 ? .blue : .red
     
     return cell

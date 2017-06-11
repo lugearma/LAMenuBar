@@ -12,6 +12,7 @@
 		7A628F0E447C435B16673AFCB5A721FE /* Pods-LAMenuBar_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DAA521A824F28A90D8482B241A444B36 /* Pods-LAMenuBar_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AB36E7F13CC1BF134DFEFA069312134 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		92294A971EED836000D09883 /* LAMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92294A961EED836000D09883 /* LAMenuBar.swift */; };
+		92294A9D1EED9CDB00D09883 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92294A9C1EED9CDB00D09883 /* MenuCell.swift */; };
 		94FBFAB89DC5B19A314EE82C05C029C6 /* Pods-LAMenuBar_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D61370E28BA50E2BE6D388C083D9DD /* Pods-LAMenuBar_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A675CB813505D649A2BCD4D1E56A29DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		D570AF9B977E1212599299685BC83161 /* LAMenuBar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EFAEF9A922F6F4DBC05D606848F864 /* LAMenuBar-dummy.m */; };
@@ -49,6 +50,7 @@
 		76EFAEF9A922F6F4DBC05D606848F864 /* LAMenuBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LAMenuBar-dummy.m"; sourceTree = "<group>"; };
 		83E8ADC0AA0A4A12C33881D7104E787B /* Pods-LAMenuBar_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LAMenuBar_Example.release.xcconfig"; sourceTree = "<group>"; };
 		92294A961EED836000D09883 /* LAMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LAMenuBar.swift; sourceTree = "<group>"; };
+		92294A9C1EED9CDB00D09883 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuCell.swift; path = Cell/MenuCell.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9682CA2E366FBD941404D281480AAAA6 /* Pods-LAMenuBar_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-LAMenuBar_Example-resources.sh"; sourceTree = "<group>"; };
 		AC1AD6623F4FE5575849D080C03F450A /* Pods_LAMenuBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LAMenuBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,14 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		92294A9B1EED9CC700D09883 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				92294A9C1EED9CDB00D09883 /* MenuCell.swift */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				92294A961EED836000D09883 /* LAMenuBar.swift */,
+				92294A9B1EED9CC700D09883 /* Cell */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -347,6 +358,7 @@
 			files = (
 				D570AF9B977E1212599299685BC83161 /* LAMenuBar-dummy.m in Sources */,
 				92294A971EED836000D09883 /* LAMenuBar.swift in Sources */,
+				92294A9D1EED9CDB00D09883 /* MenuCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'LAMenuBar_Example' do
+  pod 'LAMenuBar', :path => '../'
+
+  target 'LAMenuBar_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

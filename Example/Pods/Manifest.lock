@@ -1,0 +1,16 @@
+PODS:
+  - LAMenuBar (0.1.0)
+
+DEPENDENCIES:
+  - LAMenuBar (from `../`)
+
+EXTERNAL SOURCES:
+  LAMenuBar:
+    :path: ../
+
+SPEC CHECKSUMS:
+  LAMenuBar: e334a8989c3aa86d95993c31df6aaca31028be08
+
+PODFILE CHECKSUM: 95ececbd334daef0eeb006e97424f2dac44d74d0
+
+COCOAPODS: 1.2.1

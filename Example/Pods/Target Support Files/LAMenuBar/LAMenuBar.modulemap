@@ -1,0 +1,6 @@
+framework module LAMenuBar {
+  umbrella header "LAMenuBar-umbrella.h"
+
+  export *
+  module * { export * }
+}

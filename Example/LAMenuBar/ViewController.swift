@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  LAMenuBar
 //
-//  Created by lugearma on 06/11/2017.
-//  Copyright (c) 2017 lugearma. All rights reserved.
+//  Created by Luis Arias on 06/11/2017.
+//  Copyright (c) 2017 Luis Arias. All rights reserved.
 //
 
 import UIKit

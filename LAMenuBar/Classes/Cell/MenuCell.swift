@@ -14,9 +14,14 @@ public final class MenuCell: UICollectionViewCell {
   
   lazy var imageView: UIImageView = {
     let imageView = UIImageView()
-    imageView.backgroundColor = .yellow
     return imageView
   }()
+  
+  public override var isHighlighted: Bool {
+    didSet {
+      imageView.tintColor = isHighlighted ? .black : .lightGray
+    }
+  }
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -27,7 +32,7 @@ public final class MenuCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupViews() {
+  fileprivate func setupViews() {
     addSubview(imageView)
     
     addConstraintsWithFormat(format: "H:[v0(28)]", view: imageView)
@@ -35,5 +40,9 @@ public final class MenuCell: UICollectionViewCell {
     
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+  }
+  
+  func configurate(for imageName: String) {
+    imageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
   }
 }

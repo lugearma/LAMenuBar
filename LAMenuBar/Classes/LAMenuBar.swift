@@ -21,40 +21,47 @@ extension UIView {
     }
     
     addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewDictionary))
-    
   }
+}
+
+public struct LAMenuModel {
+  
+  public let imagesNames: [String]
+  public let backgroundColor: UIColor
 }
 
 public final class LAMenuBar: UIView {
   
-  lazy var collectionView: UICollectionView = {
+  public var imagesNames: [String]?
+  
+  private lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    cv.register(MenuCell.self, forCellWithReuseIdentifier: MenuCell.identifier)
     
-    cv.dataSource = self
-    cv.delegate = self
-    return cv
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    
+    collectionView.backgroundColor = .white
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.register(MenuCell.self, forCellWithReuseIdentifier: MenuCell.identifier)
+    return collectionView
   }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     
     setupView()
-    
-    backgroundColor = .red
   }
   
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func setupView() {
+  fileprivate func setupView() {
     addSubview(collectionView)
     
     addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)
-    addConstraintsWithFormat(format: "V:|[v0]|", view: collectionView)
+    addConstraintsWithFormat(format: "V:|[v0(50)]", view: collectionView)
   }
 }
 
@@ -70,8 +77,10 @@ extension LAMenuBar: UICollectionViewDataSource {
     
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell else { fatalError() }
     
+    guard let imageName = imagesNames?[indexPath.row] else { fatalError() }
+    cell.configurate(for: imageName)
     
-    cell.backgroundColor = indexPath.row % 2 == 0 ? .blue : .red
+    cell.tintColor = .lightGray
     
     return cell
   }

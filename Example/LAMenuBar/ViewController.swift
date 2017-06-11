@@ -13,13 +13,14 @@ class ViewController: UIViewController {
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
+    mb.imagesNames = ["home", "trending", "subscriptions", "account"]
     return mb
   }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.backgroundColor = .white
+    view.backgroundColor = .gray
     
     configurateNavigationBar()
     setupMenuBar()

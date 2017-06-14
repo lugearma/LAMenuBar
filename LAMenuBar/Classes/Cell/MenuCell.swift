@@ -23,6 +23,12 @@ public final class MenuCell: UICollectionViewCell {
     }
   }
   
+  public override var isSelected: Bool {
+    didSet {
+      imageView.tintColor = isSelected ? .black : .lightGray
+    }
+  }
+  
   public override init(frame: CGRect) {
     super.init(frame: frame)
     setupViews()

@@ -39,11 +39,13 @@ public final class LAMenuBar: UIView {
     layout.scrollDirection = .horizontal
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    let selectedIndexPath = IndexPath(row: 0, section: 0)
     
     collectionView.backgroundColor = .white
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.register(MenuCell.self, forCellWithReuseIdentifier: MenuCell.identifier)
+    collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
     return collectionView
   }()
   

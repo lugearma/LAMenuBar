@@ -33,6 +33,7 @@ public struct LAMenuModel {
 @available(iOS 9.0, *)
 public final class LAMenuBar: UIView {
   
+  fileprivate var leftAnchorContraint: NSLayoutConstraint?
   public var imagesNames: [String]?
   
   private lazy var collectionView: UICollectionView = {
@@ -68,12 +69,14 @@ public final class LAMenuBar: UIView {
     horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(horizontalBarView)
     
-    let leftContraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
-    let bottomContraint = horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-    let constraintForBotton = horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
-    let constraintForHeight = horizontalBarView.heightAnchor.constraint(equalToConstant: 4)
+    leftAnchorContraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
+    let bottomAnchorContraint = horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+    let anchorConstraintForBotton = horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
+    let anchorConstraintForHeight = horizontalBarView.heightAnchor.constraint(equalToConstant: 4)
     
-    NSLayoutConstraint.activate([leftContraint, bottomContraint, constraintForBotton, constraintForHeight])
+    guard let leftAnchorContraint = leftAnchorContraint else { fatalError() }
+    
+    NSLayoutConstraint.activate([leftAnchorContraint, bottomAnchorContraint, anchorConstraintForBotton, anchorConstraintForHeight])
   }
   
   fileprivate func setupView() {
@@ -118,12 +121,17 @@ extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }
-  
-  
 }
 
 // MARK: - UICollectionViewDelegate
 
 @available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegate {
+  
+  public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    // TODO: Change number of items
+    let x = CGFloat(indexPath.item) * frame.width / 4
+    leftAnchorContraint?.constant = x
+    
+  }
 }

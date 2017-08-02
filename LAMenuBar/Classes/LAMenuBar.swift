@@ -130,8 +130,11 @@ extension LAMenuBar: UICollectionViewDelegate {
   
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     // TODO: Change number of items
-    let x = CGFloat(indexPath.item) * frame.width / 4
-    leftAnchorContraint?.constant = x
+    let x = CGFloat(indexPath.item) * self.frame.width / 4
+    self.leftAnchorContraint?.constant = x
     
+    UIView.animate(withDuration: 0.3) {
+      self.layoutIfNeeded()
+    }
   }
 }

@@ -226,10 +226,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = G9KYNT8JLN;
 						LastSwiftMigration = 0820;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = G9KYNT8JLN;
 						LastSwiftMigration = 0820;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -508,6 +510,7 @@
 			baseConfigurationReference = 095FBAD4E47A8C42123F71ED /* Pods-LAMenuBar_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G9KYNT8JLN;
 				INFOPLIST_FILE = LAMenuBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -522,6 +525,7 @@
 			baseConfigurationReference = FCAC9F7CC6001A665E3A6037 /* Pods-LAMenuBar_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G9KYNT8JLN;
 				INFOPLIST_FILE = LAMenuBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -535,6 +539,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37198B2AF339A14097A144F1 /* Pods-LAMenuBar_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = G9KYNT8JLN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -555,6 +560,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C4044EAB5AABC8BA877A280 /* Pods-LAMenuBar_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = G9KYNT8JLN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

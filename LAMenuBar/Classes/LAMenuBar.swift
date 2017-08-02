@@ -30,6 +30,7 @@ public struct LAMenuModel {
   public let backgroundColor: UIColor
 }
 
+@available(iOS 9.0, *)
 public final class LAMenuBar: UIView {
   
   public var imagesNames: [String]?
@@ -53,10 +54,26 @@ public final class LAMenuBar: UIView {
     super.init(frame: frame)
     
     setupView()
+    setHorizontalBar()
   }
   
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  fileprivate func setHorizontalBar() {
+    
+    let horizontalBarView = UIView()
+    horizontalBarView.backgroundColor = .blue
+    horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(horizontalBarView)
+    
+    let leftContraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
+    let bottomContraint = horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+    let constraintForBotton = horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
+    let constraintForHeight = horizontalBarView.heightAnchor.constraint(equalToConstant: 4)
+    
+    NSLayoutConstraint.activate([leftContraint, bottomContraint, constraintForBotton, constraintForHeight])
   }
   
   fileprivate func setupView() {
@@ -69,6 +86,7 @@ public final class LAMenuBar: UIView {
 
 // MARK: - UICollectionViewDataSource
 
+@available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,6 +106,7 @@ extension LAMenuBar: UICollectionViewDataSource {
   }
 }
 
+@available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -105,5 +124,6 @@ extension LAMenuBar: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UICollectionViewDelegate
 
+@available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegate {
 }

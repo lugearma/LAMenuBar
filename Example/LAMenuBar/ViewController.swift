@@ -9,6 +9,7 @@
 import UIKit
 import LAMenuBar
 
+@available(iOS 9.0, *)
 class ViewController: UIViewController {
   
   lazy var menuBar: LAMenuBar = {

@@ -12,19 +12,22 @@ import LAMenuBar
 @available(iOS 9.0, *)
 class ViewController: UIViewController {
   
-  lazy var menuBar: LAMenuBar = {
-    let mb = LAMenuBar()
-    mb.imagesNames = ["home", "trending", "subscriptions", "account"]
-    return mb
-  }()
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     view.backgroundColor = .gray
     
     configurateNavigationBar()
-    setupMenuBar()
+    setupMenuView()
+  }
+  
+  private func setupMenuView() {
+    
+    let menuView = LAMenuView()
+    view.addSubview(menuView)
+    
+    view.addConstraintsWithFormat(format: "H:|[v0]|", view: menuView)
+    view.addConstraintsWithFormat(format: "V:|[v0]|", view: menuView)
   }
   
   func configurateNavigationBar() {
@@ -32,12 +35,4 @@ class ViewController: UIViewController {
     UINavigationBar.appearance().shadowImage = UIImage()
     UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
   }
-  
-  private func setupMenuBar() {
-    view.addSubview(menuBar)
-    
-    view.addConstraintsWithFormat(format: "H:|[v0]|", view: menuBar)
-    view.addConstraintsWithFormat(format: "V:|[v0(50)]", view: menuBar)
-  }
 }
-

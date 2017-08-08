@@ -65,6 +65,8 @@ public final class LAMenuBar: UIView {
   fileprivate func setHorizontalBar() {
     
     let horizontalBarView = UIView()
+    
+    //TODO: Set custom color
     horizontalBarView.backgroundColor = .blue
     horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(horizontalBarView)

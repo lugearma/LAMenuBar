@@ -28,10 +28,14 @@ public class LAMenuView: UIView {
   }
   
   func setupContainer() {
+    
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
+    
     let collectionView = LAMenuContentContainer(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), collectionViewLayout: layout)
     collectionView.backgroundColor = .red
+    collectionView.configuration(delegate: menuBar)
+    
     self.addSubview(collectionView)
     
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)

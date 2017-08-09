@@ -7,7 +7,14 @@
 
 import Foundation
 
+protocol LAMenuContentContainerDelegate: class {
+  
+  func didScroll(scrollView: UIScrollView)
+}
+
 public final class LAMenuContentContainer: UICollectionView {
+  
+  weak var menuDelegate: LAMenuContentContainerDelegate?
   
   override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
@@ -20,6 +27,10 @@ public final class LAMenuContentContainer: UICollectionView {
   
   required public convenience init?(coder aDecoder: NSCoder) {
     self.init(coder: aDecoder)
+  }
+  
+  func configuration(delegate: LAMenuContentContainerDelegate) {
+    self.menuDelegate = delegate
   }
 }
 
@@ -43,6 +54,10 @@ extension LAMenuContentContainer: UICollectionViewDataSource {
 
 extension LAMenuContentContainer: UICollectionViewDelegate {
   
+  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    // Call delegate
+    menuDelegate?.didScroll(scrollView: scrollView)
+  }
 }
 
 // MARK: UICollectionViewDelegateFlowLayout

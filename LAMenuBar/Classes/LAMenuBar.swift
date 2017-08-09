@@ -126,3 +126,11 @@ extension LAMenuBar: UICollectionViewDelegate {
     }
   }
 }
+
+@available(iOS 9.0, *)
+extension LAMenuBar: LAMenuContentContainerDelegate {
+  
+  func didScroll(scrollView: UIScrollView) {
+    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / 4
+  }
+}

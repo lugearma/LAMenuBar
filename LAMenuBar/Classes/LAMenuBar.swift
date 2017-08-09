@@ -8,22 +8,6 @@
 
 import UIKit
 
-extension UIView {
-  
-  func addConstraintsWithFormat(format: String, view: UIView...) {
-    
-    var viewDictionary = [String: UIView]()
-    
-    for (index, view) in view.enumerated() {
-      let key = "v\(index)"
-      viewDictionary[key] = view
-      view.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewDictionary))
-  }
-}
-
 public struct LAMenuModel {
   
   public let imagesNames: [String]
@@ -111,6 +95,8 @@ extension LAMenuBar: UICollectionViewDataSource {
   }
 }
 
+// MARK: UICollectionViewDelegateFlowLayout
+
 @available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   
@@ -138,5 +124,13 @@ extension LAMenuBar: UICollectionViewDelegate {
     UIView.animate(withDuration: 0.3) {
       self.layoutIfNeeded()
     }
+  }
+}
+
+@available(iOS 9.0, *)
+extension LAMenuBar: LAMenuContentContainerDelegate {
+  
+  func didScroll(scrollView: UIScrollView) {
+    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / 4
   }
 }

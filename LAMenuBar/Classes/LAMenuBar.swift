@@ -111,6 +111,8 @@ extension LAMenuBar: UICollectionViewDataSource {
   }
 }
 
+// MARK: UICollectionViewDelegateFlowLayout
+
 @available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   

@@ -15,12 +15,15 @@ public final class LAMenuContentContainer: UICollectionView {
     self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     self.delegate = self
     self.dataSource = self
+    self.isPagingEnabled = true
   }
   
   required public convenience init?(coder aDecoder: NSCoder) {
     self.init(coder: aDecoder)
   }
 }
+
+// MARK: UICollectionViewDataSource
 
 extension LAMenuContentContainer: UICollectionViewDataSource {
   
@@ -36,13 +39,21 @@ extension LAMenuContentContainer: UICollectionViewDataSource {
   }
 }
 
+// MARK: UICollectionViewDelegate
+
 extension LAMenuContentContainer: UICollectionViewDelegate {
   
 }
+
+// MARK: UICollectionViewDelegateFlowLayout
 
 extension LAMenuContentContainer: UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(width: self.frame.width, height: self.frame.height)
+  }
+  
+  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
   }
 }

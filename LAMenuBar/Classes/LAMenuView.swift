@@ -35,6 +35,20 @@ public class LAMenuView: UIView {
     let collectionView = LAMenuContentContainer(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), collectionViewLayout: layout)
     collectionView.configuration(delegate: menuBar)
     
+    let fV = UIView()
+    fV.backgroundColor = .blue
+    
+    let sV = UIView()
+    sV.backgroundColor = .black
+    
+    let tV = UIView()
+    tV.backgroundColor = .red
+    
+    let foV = UIView()
+    foV.backgroundColor = .yellow
+    
+    collectionView.views = [fV, sV, tV, foV]
+    
     menuBar.configuration(delegate: collectionView)
     
     self.addSubview(collectionView)

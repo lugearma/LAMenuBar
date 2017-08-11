@@ -11,6 +11,7 @@
 		75F7F4407AC9285A21007DE409D9EB16 /* LAMenuBar-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C7DE980C32DD8933C223D41B933EF492 /* LAMenuBar-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A628F0E447C435B16673AFCB5A721FE /* Pods-LAMenuBar_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DAA521A824F28A90D8482B241A444B36 /* Pods-LAMenuBar_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7AB36E7F13CC1BF134DFEFA069312134 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		9215068A1F3D4404009334E2 /* LAMenuContentContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921506891F3D4404009334E2 /* LAMenuContentContainerCell.swift */; };
 		92294A971EED836000D09883 /* LAMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92294A961EED836000D09883 /* LAMenuBar.swift */; };
 		92294A9D1EED9CDB00D09883 /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92294A9C1EED9CDB00D09883 /* MenuBarCell.swift */; };
 		92BF02631F3B518E00E01B95 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BF02621F3B518E00E01B95 /* Extensions.swift */; };
@@ -52,6 +53,7 @@
 		6984F5D7069DE6CF7F8F356FA1FB8AEB /* Pods-LAMenuBar_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-LAMenuBar_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		76EFAEF9A922F6F4DBC05D606848F864 /* LAMenuBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "LAMenuBar-dummy.m"; sourceTree = "<group>"; };
 		83E8ADC0AA0A4A12C33881D7104E787B /* Pods-LAMenuBar_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-LAMenuBar_Example.release.xcconfig"; sourceTree = "<group>"; };
+		921506891F3D4404009334E2 /* LAMenuContentContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LAMenuContentContainerCell.swift; path = Cell/LAMenuContentContainerCell.swift; sourceTree = "<group>"; };
 		92294A961EED836000D09883 /* LAMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LAMenuBar.swift; sourceTree = "<group>"; };
 		92294A9C1EED9CDB00D09883 /* MenuBarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuBarCell.swift; path = Cell/MenuBarCell.swift; sourceTree = "<group>"; };
 		92BF02621F3B518E00E01B95 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				92294A9C1EED9CDB00D09883 /* MenuBarCell.swift */,
+				921506891F3D4404009334E2 /* LAMenuContentContainerCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92E903D41F3A33A100F817BC /* LAMenuView.swift in Sources */,
+				9215068A1F3D4404009334E2 /* LAMenuContentContainerCell.swift in Sources */,
 				92BF02631F3B518E00E01B95 /* Extensions.swift in Sources */,
 				D570AF9B977E1212599299685BC83161 /* LAMenuBar-dummy.m in Sources */,
 				92294A971EED836000D09883 /* LAMenuBar.swift in Sources */,

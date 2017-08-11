@@ -16,6 +16,7 @@ protocol LAMenuContentContainerDelegate: class {
 public final class LAMenuContentContainer: UICollectionView {
   
   weak var contentContainerDelegate: LAMenuContentContainerDelegate?
+  var views: [UIView]?
   
   override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
@@ -32,7 +33,7 @@ public final class LAMenuContentContainer: UICollectionView {
   }
   
   private func setupCollectionView() {
-    self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    self.register(LAMenuContentContainerCell.self, forCellWithReuseIdentifier: LAMenuContentContainerCell.identifier)
     self.delegate = self
     self.dataSource = self
     self.isPagingEnabled = true
@@ -50,9 +51,12 @@ extension LAMenuContentContainer: UICollectionViewDataSource {
   }
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-    let colors = [UIColor.red, UIColor.blue, UIColor.black, UIColor.blue, UIColor.red, ]
-    cell.backgroundColor = colors[indexPath.item]
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LAMenuContentContainerCell.identifier, for: indexPath) as? LAMenuContentContainerCell else { fatalError() }
+    
+    guard let view = views?[indexPath.row] else { fatalError() }
+    
+    cell.configuration(with: view)
+    
     return cell
   }
 }

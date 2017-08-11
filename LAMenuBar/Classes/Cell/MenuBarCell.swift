@@ -1,5 +1,5 @@
 //
-//  MenuCell.swift
+//  MenuBarCell.swift
 //  Pods
 //
 //  Created by Luis Arias on 6/11/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public final class MenuCell: UICollectionViewCell {
+public final class MenuBarCell: UICollectionViewCell {
   
   static let identifier = "MenuCellIdentifier"
   

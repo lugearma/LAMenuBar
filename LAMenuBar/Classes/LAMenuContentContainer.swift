@@ -10,11 +10,12 @@ import Foundation
 protocol LAMenuContentContainerDelegate: class {
   
   func didScroll(scrollView: UIScrollView)
+  func didEndScrollWithIndex(index: IndexPath)
 }
 
 public final class LAMenuContentContainer: UICollectionView {
   
-  weak var menuDelegate: LAMenuContentContainerDelegate?
+  weak var contentContainerDelegate: LAMenuContentContainerDelegate?
   
   override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
@@ -23,6 +24,7 @@ public final class LAMenuContentContainer: UICollectionView {
     self.delegate = self
     self.dataSource = self
     self.isPagingEnabled = true
+    self.showsHorizontalScrollIndicator = false
   }
   
   required public convenience init?(coder aDecoder: NSCoder) {
@@ -30,7 +32,7 @@ public final class LAMenuContentContainer: UICollectionView {
   }
   
   func configuration(delegate: LAMenuContentContainerDelegate) {
-    self.menuDelegate = delegate
+    self.contentContainerDelegate = delegate
   }
 }
 
@@ -56,7 +58,15 @@ extension LAMenuContentContainer: UICollectionViewDelegate {
   
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     // Call delegate
-    menuDelegate?.didScroll(scrollView: scrollView)
+    contentContainerDelegate?.didScroll(scrollView: scrollView)
+  }
+  
+  public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+  
+    let row = Int(targetContentOffset.pointee.x / self.frame.width)
+    let index = IndexPath(row: row, section: 0)
+
+    contentContainerDelegate?.didEndScrollWithIndex(index: index)
   }
 }
 

@@ -22,11 +22,12 @@ public struct LAMenuModel {
 @available(iOS 9.0, *)
 public final class LAMenuBar: UIView {
   
-  fileprivate weak var delegate: LAMenuBarDelegate?
-  fileprivate var leftAnchorContraint: NSLayoutConstraint?
   public var imagesNames: [String]?
   
-  private lazy var collectionView: UICollectionView = {
+  fileprivate weak var delegate: LAMenuBarDelegate?
+  fileprivate var leftAnchorContraint: NSLayoutConstraint?
+  
+  fileprivate lazy var collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     
@@ -128,10 +129,6 @@ extension LAMenuBar: UICollectionViewDelegate {
   
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    UIView.animate(withDuration: 0.3) {
-      self.layoutIfNeeded()
-    }
-    
     delegate?.didSelectItemAt(indexPath: indexPath.item)
   }
 }
@@ -141,5 +138,9 @@ extension LAMenuBar: LAMenuContentContainerDelegate {
   
   func didScroll(scrollView: UIScrollView) {
     self.leftAnchorContraint?.constant = scrollView.contentOffset.x / 4
+  }
+  
+  func didEndScrollWithIndex(index: IndexPath) {
+    self.collectionView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
   }
 }

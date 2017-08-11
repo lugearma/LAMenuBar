@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol LAMenuBarDelegate: class {
+  
+  func didSelectItemAt(indexPath: Int)
+}
+
 public struct LAMenuModel {
   
   public let imagesNames: [String]
@@ -17,6 +22,7 @@ public struct LAMenuModel {
 @available(iOS 9.0, *)
 public final class LAMenuBar: UIView {
   
+  fileprivate weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?
   public var imagesNames: [String]?
   
@@ -44,6 +50,10 @@ public final class LAMenuBar: UIView {
   
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func configuration(delegate: LAMenuBarDelegate) {
+    self.delegate = delegate
   }
   
   fileprivate func setHorizontalBar() {
@@ -117,13 +127,12 @@ extension LAMenuBar: UICollectionViewDelegateFlowLayout {
 extension LAMenuBar: UICollectionViewDelegate {
   
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    // TODO: Change number of items
-    let x = CGFloat(indexPath.item) * self.frame.width / 4
-    self.leftAnchorContraint?.constant = x
-    
+
     UIView.animate(withDuration: 0.3) {
       self.layoutIfNeeded()
     }
+    
+    delegate?.didSelectItemAt(indexPath: indexPath.item)
   }
 }
 

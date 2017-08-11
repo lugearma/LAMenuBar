@@ -72,3 +72,12 @@ extension LAMenuContentContainer: UICollectionViewDelegateFlowLayout {
     return 0
   }
 }
+
+extension LAMenuContentContainer: LAMenuBarDelegate {
+  
+  func didSelectItemAt(indexPath: Int) {
+    let index = IndexPath(row: indexPath, section: 0)
+    
+    self.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+  }
+}

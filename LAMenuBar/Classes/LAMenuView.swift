@@ -36,6 +36,8 @@ public class LAMenuView: UIView {
     collectionView.backgroundColor = .red
     collectionView.configuration(delegate: menuBar)
     
+    menuBar.configuration(delegate: collectionView)
+    
     self.addSubview(collectionView)
     
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)

@@ -25,6 +25,7 @@ public final class LAMenuContentContainer: UICollectionView {
     self.dataSource = self
     self.isPagingEnabled = true
     self.showsHorizontalScrollIndicator = false
+    self.bounces = false
   }
   
   required public convenience init?(coder aDecoder: NSCoder) {

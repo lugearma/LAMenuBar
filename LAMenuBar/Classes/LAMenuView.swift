@@ -33,7 +33,6 @@ public class LAMenuView: UIView {
     layout.scrollDirection = .horizontal
     
     let collectionView = LAMenuContentContainer(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), collectionViewLayout: layout)
-    collectionView.backgroundColor = .red
     collectionView.configuration(delegate: menuBar)
     
     menuBar.configuration(delegate: collectionView)

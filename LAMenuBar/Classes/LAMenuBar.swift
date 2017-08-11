@@ -37,7 +37,7 @@ public final class LAMenuBar: UIView {
     collectionView.backgroundColor = .white
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.register(MenuCell.self, forCellWithReuseIdentifier: MenuCell.identifier)
+    collectionView.register(MenuBarCell.self, forCellWithReuseIdentifier: MenuBarCell.identifier)
     collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
     return collectionView
   }()
@@ -95,7 +95,7 @@ extension LAMenuBar: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCell.identifier, for: indexPath) as? MenuCell else { fatalError() }
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else { fatalError() }
     
     guard let imageName = imagesNames?[indexPath.row] else { fatalError() }
     cell.configurate(for: imageName)

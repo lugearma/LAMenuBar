@@ -20,12 +20,7 @@ public final class LAMenuContentContainer: UICollectionView {
   override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
     
-    self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-    self.delegate = self
-    self.dataSource = self
-    self.isPagingEnabled = true
-    self.showsHorizontalScrollIndicator = false
-    self.bounces = false
+    setupCollectionView()
   }
   
   required public convenience init?(coder aDecoder: NSCoder) {
@@ -34,6 +29,15 @@ public final class LAMenuContentContainer: UICollectionView {
   
   func configuration(delegate: LAMenuContentContainerDelegate) {
     self.contentContainerDelegate = delegate
+  }
+  
+  private func setupCollectionView() {
+    self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    self.delegate = self
+    self.dataSource = self
+    self.isPagingEnabled = true
+    self.showsHorizontalScrollIndicator = false
+    self.bounces = false
   }
 }
 

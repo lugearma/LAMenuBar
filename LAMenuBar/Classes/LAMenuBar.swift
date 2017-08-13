@@ -31,7 +31,7 @@ public struct LAMenuModel {
 @available(iOS 9.0, *)
 public final class LAMenuBar: UIView {
   
-  public var imagesNames: [String]?
+  public var images: [UIImage?]?
   
   fileprivate weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?
@@ -106,8 +106,8 @@ extension LAMenuBar: UICollectionViewDataSource {
     
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else { fatalError() }
     
-    guard let imageName = imagesNames?[indexPath.row] else { fatalError() }
-    cell.configurate(for: imageName)
+    guard let image = images?[indexPath.row] else { fatalError() }
+    cell.configurate(for: image)
     
     cell.tintColor = .lightGray
     

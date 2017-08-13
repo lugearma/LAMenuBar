@@ -13,7 +13,7 @@ public class LAMenuView: UIView {
   public var model: LAMenuModel? {
     didSet {
       guard let menuContentContainer = menuContentContainer,
-        let views = model?.views else { fatalError() }
+        let views = model?.views else { fatalError("Can not load model") }
       
       menuContentContainer.views = views
     }
@@ -21,7 +21,7 @@ public class LAMenuView: UIView {
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
-    mb.imagesNames = ["home", "trending", "subscriptions", "account"]
+    mb.images = [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")]
     
     return mb
   }()

@@ -24,6 +24,22 @@ class ViewController: UIViewController {
   private func setupMenuView() {
     
     let menuView = LAMenuView()
+    
+    let fV = UIView()
+    fV.backgroundColor = .blue
+    
+    let sV = UIView()
+    sV.backgroundColor = .black
+    
+    let tV = UIView()
+    tV.backgroundColor = .red
+    
+    let foV = UIView()
+    foV.backgroundColor = .yellow
+    
+    let views = [fV, sV, tV, foV]
+    menuView.model = LAMenuModel(images: [UIImage(named: "")], backgroundColor: .red, sections: 4, views: views)
+  
     view.addSubview(menuView)
     
     view.addConstraintsWithFormat(format: "H:|[v0]|", view: menuView)

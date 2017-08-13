@@ -15,8 +15,17 @@ protocol LAMenuBarDelegate: class {
 
 public struct LAMenuModel {
   
-  public let imagesNames: [String]
+  public let images: [UIImage?]
   public let backgroundColor: UIColor
+  public let sections: Int
+  public let views: [UIView]
+  
+  public init(images: [UIImage?], backgroundColor: UIColor, sections: Int, views: [UIView]) {
+    self.images = images
+    self.backgroundColor = backgroundColor
+    self.sections = sections
+    self.views = views
+  }
 }
 
 @available(iOS 9.0, *)

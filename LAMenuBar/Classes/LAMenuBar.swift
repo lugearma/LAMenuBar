@@ -15,14 +15,23 @@ protocol LAMenuBarDelegate: class {
 
 public struct LAMenuModel {
   
-  public let imagesNames: [String]
+  public let images: [UIImage?]
   public let backgroundColor: UIColor
+  public let sections: Int
+  public let views: [UIView]
+  
+  public init(images: [UIImage?], backgroundColor: UIColor, sections: Int, views: [UIView]) {
+    self.images = images
+    self.backgroundColor = backgroundColor
+    self.sections = sections
+    self.views = views
+  }
 }
 
 @available(iOS 9.0, *)
 public final class LAMenuBar: UIView {
   
-  public var imagesNames: [String]?
+  public var images: [UIImage?]?
   
   fileprivate weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?
@@ -97,8 +106,8 @@ extension LAMenuBar: UICollectionViewDataSource {
     
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else { fatalError() }
     
-    guard let imageName = imagesNames?[indexPath.row] else { fatalError() }
-    cell.configurate(for: imageName)
+    guard let image = images?[indexPath.row] else { fatalError() }
+    cell.configurate(for: image)
     
     cell.tintColor = .lightGray
     

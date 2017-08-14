@@ -48,7 +48,7 @@ public final class MenuBarCell: UICollectionViewCell {
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
   }
   
-  func configurate(for imageName: String) {
-    imageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
+  func configurate(for image: UIImage) {
+    imageView.image = image.withRenderingMode(.alwaysTemplate)
   }
 }

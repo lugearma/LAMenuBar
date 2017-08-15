@@ -20,10 +20,10 @@ public struct LAMenuModel {
   public let sections: Int
   public let views: [UIView]
   
-  public init(images: [UIImage?], backgroundColor: UIColor, sections: Int, views: [UIView]) {
+  public init(images: [UIImage?], backgroundColor: UIColor, views: [UIView]) {
     self.images = images
     self.backgroundColor = backgroundColor
-    self.sections = sections
+    self.sections = views.count
     self.views = views
   }
 }
@@ -32,6 +32,7 @@ public struct LAMenuModel {
 public final class LAMenuBar: UIView {
   
   public var images: [UIImage?]?
+  public var numberOfSections: Int?
   
   fileprivate weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?

@@ -38,7 +38,8 @@ class ViewController: UIViewController {
     foV.backgroundColor = .yellow
     
     let views = [fV, sV, tV, foV]
-    menuView.model = LAMenuModel(images: [UIImage(named: "")], backgroundColor: .red, sections: 4, views: views)
+    
+    menuView.model = LAMenuModel(images: [UIImage(named: "")], backgroundColor: .red, views: views)
   
     view.addSubview(menuView)
     

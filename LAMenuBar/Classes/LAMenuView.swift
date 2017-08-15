@@ -13,20 +13,23 @@ public class LAMenuView: UIView {
   public var model: LAMenuModel? {
     didSet {
       guard let menuContentContainer = menuContentContainer,
-        let views = model?.views else { fatalError("Can not load model") }
+        let model = model else { fatalError("Can not load model") }
       
-      menuContentContainer.views = views
+      menuContentContainer.views = model.views
+      self.numberOfSections = model.images.count <= 4 ? model.images.count : 4
     }
   }
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
+    mb.numberOfSections = self.numberOfSections
     mb.images = [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")]
     
     return mb
   }()
   
   private var menuContentContainer: LAMenuContentContainer?
+  private var numberOfSections: Int?
   
   override init(frame: CGRect) {
     super.init(frame: frame)

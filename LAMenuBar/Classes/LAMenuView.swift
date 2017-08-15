@@ -9,21 +9,20 @@ import UIKit
 
 @available(iOS 9.0, *)
 public class LAMenuView: UIView {
-  
+
   public var model: LAMenuModel? {
     didSet {
-      guard let menuContentContainer = menuContentContainer,
-        let model = model else { fatalError("Can not load model") }
+      guard let menuContentContainer = menuContentContainer, let model = model else { fatalError("Can not load model") }
       
       menuContentContainer.views = model.views
-      self.numberOfSections = model.images.count <= 4 ? model.images.count : 4
+      menuBar.images = model.images
     }
   }
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
     mb.numberOfSections = self.numberOfSections
-    mb.images = [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")]
+//    mb.images = [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")]
     
     return mb
   }()

@@ -147,6 +147,8 @@ extension LAMenuBar: UICollectionViewDelegate {
   }
 }
 
+// MARK: - LAMenuContentContainerDelegate
+
 @available(iOS 9.0, *)
 extension LAMenuBar: LAMenuContentContainerDelegate {
   

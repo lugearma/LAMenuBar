@@ -92,6 +92,8 @@ extension LAMenuContentContainer: UICollectionViewDelegateFlowLayout {
   }
 }
 
+// MARK: - LAMenuBarDelegate
+
 extension LAMenuContentContainer: LAMenuBarDelegate {
   
   func didSelectItemAt(indexPath: Int) {

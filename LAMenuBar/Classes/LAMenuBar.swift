@@ -34,8 +34,7 @@ public struct LAMenuModel {
 public final class LAMenuBar: UIView {
   
   public var images: [UIImage?]?
-  public var numberOfSections: Int?
-  public var barColor: UIColor?
+  public var model: LAMenuModel?
   
   fileprivate weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?
@@ -71,11 +70,11 @@ public final class LAMenuBar: UIView {
     let horizontalBarView = UIView()
     
     //TODO: Set custom color
-    horizontalBarView.backgroundColor = self.barColor
+    horizontalBarView.backgroundColor = model?.barColor
     horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(horizontalBarView)
     
-    guard let sections = numberOfSections else { fatalError() }
+    guard let sections = model?.sections else { fatalError() }
     
     leftAnchorContraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
     let bottomAnchorContraint = horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
@@ -102,7 +101,7 @@ extension LAMenuBar: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    guard let sections = numberOfSections else { fatalError() }
+    guard let sections = model?.sections else { fatalError() }
     
     return sections
   }
@@ -127,7 +126,7 @@ extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-    guard let sections = numberOfSections else { fatalError() }
+    guard let sections = model?.sections else { fatalError() }
     
     let width = frame.width / CGFloat(sections)
     
@@ -157,7 +156,7 @@ extension LAMenuBar: LAMenuContentContainerDelegate {
   
   func didScroll(scrollView: UIScrollView) {
     
-    guard let sections = numberOfSections else { fatalError() }
+    guard let sections = model?.sections else { fatalError() }
     
     self.leftAnchorContraint?.constant = scrollView.contentOffset.x / CGFloat(sections)
   }

@@ -47,7 +47,7 @@ public final class LAMenuContentContainer: UICollectionView {
 extension LAMenuContentContainer: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    return views?.count ?? 0
   }
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

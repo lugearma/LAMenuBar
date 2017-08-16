@@ -98,7 +98,10 @@ public final class LAMenuBar: UIView {
 extension LAMenuBar: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    
+    guard let sections = numberOfSections else { fatalError() }
+    
+    return sections
   }
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,7 +123,10 @@ extension LAMenuBar: UICollectionViewDataSource {
 extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width = frame.width / 4
+    
+    guard let sections = numberOfSections else { fatalError() }
+    
+    let width = frame.width / CGFloat(sections)
     
     return CGSize(width: width, height: frame.height)
   }
@@ -145,7 +151,10 @@ extension LAMenuBar: UICollectionViewDelegate {
 extension LAMenuBar: LAMenuContentContainerDelegate {
   
   func didScroll(scrollView: UIScrollView) {
-    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / 4
+    
+    guard let sections = numberOfSections else { fatalError() }
+    
+    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / CGFloat(sections)
   }
   
   func didEndScrollWithIndex(index: IndexPath) {

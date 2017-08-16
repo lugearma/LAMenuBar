@@ -52,17 +52,6 @@ public final class LAMenuBar: UIView {
     return collectionView
   }()
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    
-//    setupView()
-//    setHorizontalBar()
-  }
-  
-  required public init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
   public override func didMoveToSuperview() {
     super.didMoveToSuperview()
     

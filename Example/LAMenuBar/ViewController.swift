@@ -23,8 +23,7 @@ class ViewController: UIViewController {
   
   private func setupMenuView() {
     
-    let menuView = LAMenuView()
-    
+    // Create array of views that are going to be presented in each section
     let fV = UIView()
     fV.backgroundColor = .blue
     
@@ -38,7 +37,15 @@ class ViewController: UIViewController {
     foV.backgroundColor = .yellow
     
     let views = [fV, sV, tV, foV]
-    menuView.model = LAMenuModel(images: [UIImage(named: "")], backgroundColor: .red, sections: 4, views: views)
+    
+    // Create a model which has the information to present
+    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .red, views: views)
+    
+    // Create LAMenuView and add to your view
+    let menuView = LAMenuView()
+    
+    // Set the model
+    menuView.model = model
   
     view.addSubview(menuView)
     

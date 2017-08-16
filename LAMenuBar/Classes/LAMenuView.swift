@@ -9,30 +9,33 @@ import UIKit
 
 @available(iOS 9.0, *)
 public class LAMenuView: UIView {
-  
+
   public var model: LAMenuModel? {
     didSet {
-      guard let menuContentContainer = menuContentContainer,
-        let views = model?.views else { fatalError("Can not load model") }
+      guard let menuContentContainer = menuContentContainer, let model = model else { fatalError("Can not load model") }
       
-      menuContentContainer.views = views
+      menuContentContainer.views = model.views
+      menuBar.images = model.images
     }
   }
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
-    mb.images = [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")]
-    
     return mb
   }()
   
   private var menuContentContainer: LAMenuContentContainer?
+  private var numberOfSections: Int?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    setupContainer()
+  }
+  
+  public override func didMoveToSuperview() {
+    super.didMoveToSuperview()
     
     setupMenuBar()
-    setupContainer()
   }
   
   required public init?(coder aDecoder: NSCoder) {
@@ -59,6 +62,7 @@ public class LAMenuView: UIView {
   }
   
   private func setupMenuBar() {
+    menuBar.numberOfSections = model?.sections
     self.addSubview(menuBar)
     
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: menuBar)

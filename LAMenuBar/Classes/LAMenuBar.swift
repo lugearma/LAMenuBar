@@ -55,12 +55,19 @@ public final class LAMenuBar: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     
-    setupView()
-    setHorizontalBar()
+//    setupView()
+//    setHorizontalBar()
   }
   
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  public override func didMoveToSuperview() {
+    super.didMoveToSuperview()
+    
+    setupView()
+    setHorizontalBar()
   }
   
   func configuration(delegate: LAMenuBarDelegate) {
@@ -76,10 +83,12 @@ public final class LAMenuBar: UIView {
     horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(horizontalBarView)
     
+    guard let sections = numberOfSections else { fatalError() }
+    
     leftAnchorContraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
     let bottomAnchorContraint = horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-    let anchorConstraintForBotton = horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4)
-    let anchorConstraintForHeight = horizontalBarView.heightAnchor.constraint(equalToConstant: 4)
+    let anchorConstraintForBotton = horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/CGFloat(sections))
+    let anchorConstraintForHeight = horizontalBarView.heightAnchor.constraint(equalToConstant: CGFloat(sections))
     
     guard let leftAnchorContraint = leftAnchorContraint else { fatalError() }
     

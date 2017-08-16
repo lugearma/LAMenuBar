@@ -21,9 +21,6 @@ public class LAMenuView: UIView {
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
-    mb.numberOfSections = self.numberOfSections
-//    mb.images = [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")]
-    
     return mb
   }()
   
@@ -32,9 +29,13 @@ public class LAMenuView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
+    setupContainer()
+  }
+  
+  public override func didMoveToSuperview() {
+    super.didMoveToSuperview()
     
     setupMenuBar()
-    setupContainer()
   }
   
   required public init?(coder aDecoder: NSCoder) {
@@ -61,6 +62,7 @@ public class LAMenuView: UIView {
   }
   
   private func setupMenuBar() {
+    menuBar.numberOfSections = model?.sections
     self.addSubview(menuBar)
     
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: menuBar)

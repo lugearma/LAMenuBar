@@ -17,12 +17,14 @@ public struct LAMenuModel {
   
   public let images: [UIImage?]
   public let backgroundColor: UIColor
+  public let barColor: UIColor
   public let sections: Int
   public let views: [UIView]
   
-  public init(images: [UIImage?], backgroundColor: UIColor, views: [UIView]) {
+  public init(images: [UIImage?], backgroundColor: UIColor, barColor: UIColor, views: [UIView]) {
     self.images = images
     self.backgroundColor = backgroundColor
+    self.barColor = barColor
     self.sections = views.count
     self.views = views
   }
@@ -33,6 +35,7 @@ public final class LAMenuBar: UIView {
   
   public var images: [UIImage?]?
   public var numberOfSections: Int?
+  public var barColor: UIColor?
   
   fileprivate weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?
@@ -68,7 +71,7 @@ public final class LAMenuBar: UIView {
     let horizontalBarView = UIView()
     
     //TODO: Set custom color
-    horizontalBarView.backgroundColor = .blue
+    horizontalBarView.backgroundColor = self.barColor
     horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(horizontalBarView)
     

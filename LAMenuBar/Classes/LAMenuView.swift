@@ -63,6 +63,7 @@ public class LAMenuView: UIView {
   
   private func setupMenuBar() {
     menuBar.numberOfSections = model?.sections
+    menuBar.barColor = model?.barColor
     self.addSubview(menuBar)
     
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: menuBar)

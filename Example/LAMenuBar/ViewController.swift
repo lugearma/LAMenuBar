@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     let views = [fV, sV, tV, foV]
     
     // Create a model which has the information to present
-    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .red, views: views)
+    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .red, barColor: .brown, views: views)
     
     // Create LAMenuView and add to your view
     let menuView = LAMenuView()

@@ -51,9 +51,13 @@ public final class MenuBarCell: UICollectionViewCell {
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
   }
   
-  func configurate(for image: UIImage, tintColorWhenSelected: UIColor?, tintColorWhenDiselected: UIColor?) {
+  func configurate(for image: UIImage, tintColorWhenSelected: UIColor?, tintColorWhenDiselected: UIColor?, index: Int) {
+    
     imageView.image = image.withRenderingMode(.alwaysTemplate)
     self.tintColorWhenSelected = tintColorWhenSelected
     self.tintColorWhenDiselected = tintColorWhenDiselected
+    
+    // Paint the first cell
+    if index == 0 { imageView.tintColor = tintColorWhenSelected }
   }
 }

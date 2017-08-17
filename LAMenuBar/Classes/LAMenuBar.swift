@@ -115,7 +115,7 @@ extension LAMenuBar: UICollectionViewDataSource {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else { fatalError() }
     
     guard let image = images?[indexPath.row] else { fatalError() }
-    cell.configurate(for: image, tintColorWhenSelected: model?.tintColorWhenSelected, tintColorWhenDiselected: model?.tintColorWhenDiselected)
+    cell.configurate(for: image, tintColorWhenSelected: model?.tintColorWhenSelected, tintColorWhenDiselected: model?.tintColorWhenDiselected, index: indexPath.item)
     
     cell.tintColor = model?.tintColorWhenDiselected
     

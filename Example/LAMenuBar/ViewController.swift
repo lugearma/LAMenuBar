@@ -25,21 +25,21 @@ class ViewController: UIViewController {
     
     // Create array of views that are going to be presented in each section
     let fV = UIView()
-    fV.backgroundColor = .blue
+    fV.backgroundColor = UIColor(red: 150/255, green: 206/255, blue: 180/255, alpha: 1.0)
     
     let sV = UIView()
-    sV.backgroundColor = .black
+    sV.backgroundColor = UIColor(red: 255/255, green: 238/255, blue: 173/255, alpha: 1.0)
     
     let tV = UIView()
-    tV.backgroundColor = .red
+    tV.backgroundColor = UIColor(red: 255/255, green: 111/255, blue: 105/255, alpha: 1.0)
     
     let foV = UIView()
-    foV.backgroundColor = .yellow
+    foV.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 92/255, alpha: 1.0)
     
     let views = [fV, sV, tV, foV]
     
     // Create a model which has the information to present
-    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .red, barColor: .brown, tintColorWhenSelected: .red, tintColorWhenDiselected: .blue, views: views)
+    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views)
     
     // Create LAMenuView and add to your view
     let menuView = LAMenuView()

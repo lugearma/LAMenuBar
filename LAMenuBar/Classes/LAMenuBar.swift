@@ -18,13 +18,17 @@ public struct LAMenuModel {
   public let images: [UIImage?]
   public let backgroundColor: UIColor
   public let barColor: UIColor
+  public let tintColorWhenSelected: UIColor
+  public let tintColorWhenDiselected: UIColor
   public let sections: Int
   public let views: [UIView]
   
-  public init(images: [UIImage?], backgroundColor: UIColor, barColor: UIColor, views: [UIView]) {
+  public init(images: [UIImage?], backgroundColor: UIColor, barColor: UIColor, tintColorWhenSelected: UIColor, tintColorWhenDiselected: UIColor, views: [UIView]) {
     self.images = images
     self.backgroundColor = backgroundColor
     self.barColor = barColor
+    self.tintColorWhenSelected = tintColorWhenSelected
+    self.tintColorWhenDiselected = tintColorWhenDiselected
     self.sections = views.count
     self.views = views
   }
@@ -111,9 +115,9 @@ extension LAMenuBar: UICollectionViewDataSource {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else { fatalError() }
     
     guard let image = images?[indexPath.row] else { fatalError() }
-    cell.configurate(for: image)
+    cell.configurate(for: image, tintColorWhenSelected: model?.tintColorWhenSelected, tintColorWhenDiselected: model?.tintColorWhenDiselected)
     
-    cell.tintColor = .lightGray
+    cell.tintColor = model?.tintColorWhenDiselected
     
     return cell
   }

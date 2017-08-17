@@ -28,7 +28,7 @@ pod "LAMenuBar"
 
 ## Author
 
-lugearma, lugearma@gmail.com
+Luis Arias, lugearma@gmail.com
 
 ## License
 

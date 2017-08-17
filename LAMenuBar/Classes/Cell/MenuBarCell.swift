@@ -12,6 +12,9 @@ public final class MenuBarCell: UICollectionViewCell {
   
   static let identifier = "MenuCellIdentifier"
   
+  public var tintColorWhenSelected: UIColor?
+  public var tintColorWhenDiselected: UIColor?
+  
   lazy var imageView: UIImageView = {
     let imageView = UIImageView()
     return imageView
@@ -19,13 +22,13 @@ public final class MenuBarCell: UICollectionViewCell {
   
   public override var isHighlighted: Bool {
     didSet {
-      imageView.tintColor = isHighlighted ? .black : .lightGray
+      imageView.tintColor = isHighlighted ? tintColorWhenSelected ?? .black : tintColorWhenDiselected ?? .lightGray
     }
   }
   
   public override var isSelected: Bool {
     didSet {
-      imageView.tintColor = isSelected ? .black : .lightGray
+      imageView.tintColor = isSelected ? tintColorWhenSelected ?? .black : tintColorWhenDiselected ?? .lightGray
     }
   }
   
@@ -48,7 +51,13 @@ public final class MenuBarCell: UICollectionViewCell {
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
   }
   
-  func configurate(for image: UIImage) {
+  func configurate(for image: UIImage, tintColorWhenSelected: UIColor?, tintColorWhenDiselected: UIColor?, index: Int) {
+    
     imageView.image = image.withRenderingMode(.alwaysTemplate)
+    self.tintColorWhenSelected = tintColorWhenSelected
+    self.tintColorWhenDiselected = tintColorWhenDiselected
+    
+    // Paint the first cell
+    if index == 0 { imageView.tintColor = tintColorWhenSelected }
   }
 }

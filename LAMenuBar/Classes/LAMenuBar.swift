@@ -92,6 +92,7 @@ public final class LAMenuBar: UIView {
   
   fileprivate func setupView() {
     addSubview(collectionView)
+    collectionView.backgroundColor = model?.backgroundColor ?? .white
     
     addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)
     addConstraintsWithFormat(format: "V:|[v0(50)]", view: collectionView)

@@ -7,9 +7,9 @@
 
 # DEMO
 
-###### Pod to create an awesome way to show info or whatever you want 
+Pod to create an awesome way to show info or whatever you want 
 
-![alt tag](https://raw.githubusercontent.com/lugearma/FacebookNewsFeed/master/Documentation/ggiiff.gif)
+![alt tag](https://raw.githubusercontent.com/lugearma/LAMenuBar/master/Documentation/ggiiff.gif)
 
 ## Example
 

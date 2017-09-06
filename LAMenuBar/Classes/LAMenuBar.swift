@@ -75,6 +75,16 @@ public final class LAMenuBar: UIView {
     addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)
     addConstraintsWithFormat(format: "V:|[v0(50)]", view: collectionView)
   }
+  
+  func updateWhenScrollView(_ scrollView: UIScrollView) {
+    guard let sections = model?.sections else { fatalError() }
+    
+    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / CGFloat(sections)
+  }
+  
+  func updateWhenFinishScrollAtIndex(_ index: IndexPath) {
+    self.collectionView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
+  }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -129,22 +139,5 @@ extension LAMenuBar: UICollectionViewDelegate {
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
     delegate?.didSelectItemAt(indexPath: indexPath.item)
-  }
-}
-
-// MARK: - LAMenuContentContainerDelegate
-
-@available(iOS 9.0, *)
-extension LAMenuBar: LAMenuContentContainerDelegate {
-  
-  func didScroll(scrollView: UIScrollView) {
-    
-    guard let sections = model?.sections else { fatalError() }
-    
-    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / CGFloat(sections)
-  }
-  
-  func didEndScrollWithIndex(index: IndexPath) {
-    self.collectionView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
   }
 }

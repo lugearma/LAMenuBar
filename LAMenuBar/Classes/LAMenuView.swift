@@ -10,7 +10,8 @@ import UIKit
 @available(iOS 9.0, *)
 public protocol LAMenuViewDelegate: class {
   
-  func menuView(_ view: LAMenuView, didScrollWithIndex: IndexPath)
+  func menuView(_ view: LAMenuView, didScrollWithIndex index: IndexPath)
+  func menuView(_ view: LAMenuView, didSelectMenuItemAtIndex index: IndexPath)
 }
 
 @available(iOS 9.0, *)
@@ -51,7 +52,11 @@ public class LAMenuView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  public func setupContainer() {
+  public func configuration(delegate: LAMenuViewDelegate) {
+    self.delegate = delegate
+  }
+  
+  private func setupContainer() {
     
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
@@ -87,13 +92,15 @@ extension LAMenuView: LAMenuContentContainerDelegate {
   
   func didEndScrollWithIndex(index: IndexPath) {
     menuBar.updateWhenFinishScrollAtIndex(index)
+    delegate?.menuView(self, didScrollWithIndex: index)
   }
 }
 
 @available(iOS 9.0, *)
 extension LAMenuView: LAMenuBarDelegate {
   
-  func didSelectItemAt(indexPath: Int) {
+  func didSelectItemAt(indexPath: IndexPath) {
     menuContentContainer?.updateWhenSelectItemAtIndex(indexPath)
+    delegate?.menuView(self, didSelectMenuItemAtIndex: indexPath)
   }
 }

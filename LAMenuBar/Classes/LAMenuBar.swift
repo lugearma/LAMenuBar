@@ -10,7 +10,7 @@ import UIKit
 
 protocol LAMenuBarDelegate: class {
   
-  func didSelectItemAt(indexPath: Int)
+  func didSelectItemAt(indexPath: IndexPath)
 }
 
 @available(iOS 9.0, *)
@@ -138,6 +138,7 @@ extension LAMenuBar: UICollectionViewDelegate {
   
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    delegate?.didSelectItemAt(indexPath: indexPath.item)
+    let index = IndexPath(item: indexPath.item, section: 0)
+    delegate?.didSelectItemAt(indexPath: index)
   }
 }

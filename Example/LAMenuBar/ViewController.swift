@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     
     // Set the model
     menuView.model = model
+    menuView.configuration(delegate: self)
   
     view.addSubview(menuView)
     
@@ -57,5 +58,19 @@ class ViewController: UIViewController {
     navigationController?.navigationBar.isTranslucent = false
     UINavigationBar.appearance().shadowImage = UIImage()
     UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+  }
+}
+
+// MARK: - LAMenuViewDelegate
+
+@available(iOS 9.0, *)
+extension ViewController: LAMenuViewDelegate {
+  
+  func menuView(_ view: LAMenuView, didScrollWithIndex index: IndexPath) {
+    print(#function)
+  }
+  
+  func menuView(_ view: LAMenuView, didSelectMenuItemAtIndex index: IndexPath) {
+    print("Index:", index.item)
   }
 }

@@ -41,9 +41,7 @@ public final class LAMenuContentContainer: UICollectionView {
     self.bounces = false
   }
   
-  func updateWhenSelectItemAtIndex(_ indexPath: Int) {
-    let index = IndexPath(row: indexPath, section: 0)
-    
+  func updateWhenSelectItemAtIndex(_ index: IndexPath) {
     self.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
   }
 }

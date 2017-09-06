@@ -40,6 +40,12 @@ public final class LAMenuContentContainer: UICollectionView {
     self.showsHorizontalScrollIndicator = false
     self.bounces = false
   }
+  
+  func updateWhenSelectItemAtIndex(_ indexPath: Int) {
+    let index = IndexPath(row: indexPath, section: 0)
+    
+    self.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+  }
 }
 
 // MARK: UICollectionViewDataSource
@@ -89,16 +95,5 @@ extension LAMenuContentContainer: UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
-  }
-}
-
-// MARK: - LAMenuBarDelegate
-
-extension LAMenuContentContainer: LAMenuBarDelegate {
-  
-  func didSelectItemAt(indexPath: Int) {
-    let index = IndexPath(row: indexPath, section: 0)
-    
-    self.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
   }
 }

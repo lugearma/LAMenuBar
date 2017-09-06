@@ -205,6 +205,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		922CB1E21F5E52D900317951 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				92294A961EED836000D09883 /* LAMenuBar.swift */,
+				92D9D65A1F3251B80076BF36 /* LAMenuContentContainer.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		92BF02611F3B517700E01B95 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,8 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				92E903D31F3A33A100F817BC /* LAMenuView.swift */,
-				92294A961EED836000D09883 /* LAMenuBar.swift */,
-				92D9D65A1F3251B80076BF36 /* LAMenuContentContainer.swift */,
+				922CB1E21F5E52D900317951 /* Components */,
 				92294A9B1EED9CC700D09883 /* Cell */,
 				92BF02611F3B517700E01B95 /* Helpers */,
 				9200FE5D1F455AA100AE6505 /* Model */,

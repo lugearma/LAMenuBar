@@ -8,6 +8,12 @@
 import UIKit
 
 @available(iOS 9.0, *)
+public protocol LAMenuViewDelegate: class {
+  
+  func menuView(_ view: LAMenuView, didScrollWithIndex: IndexPath)
+}
+
+@available(iOS 9.0, *)
 public class LAMenuView: UIView {
 
   public var model: LAMenuModel? {
@@ -21,11 +27,14 @@ public class LAMenuView: UIView {
   
   lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
+    
     return mb
   }()
   
-  private var menuContentContainer: LAMenuContentContainer?
+  fileprivate var menuContentContainer: LAMenuContentContainer?
   private var numberOfSections: Int?
+  
+  public weak var delegate: LAMenuViewDelegate?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -50,9 +59,8 @@ public class LAMenuView: UIView {
     menuContentContainer = LAMenuContentContainer(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), collectionViewLayout: layout)
     
     if let menuContentContainer = menuContentContainer {
-      menuContentContainer.configuration(delegate: menuBar)
-      
-      menuBar.configuration(delegate: menuContentContainer)
+      menuContentContainer.configuration(delegate: self)
+      menuBar.configuration(delegate: self)
       
       self.addSubview(menuContentContainer)
       
@@ -67,5 +75,25 @@ public class LAMenuView: UIView {
     
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: menuBar)
     self.addConstraintsWithFormat(format: "V:|[v0(50)]", view: menuBar)
+  }
+}
+
+@available(iOS 9.0, *)
+extension LAMenuView: LAMenuContentContainerDelegate {
+  
+  func didScroll(scrollView: UIScrollView) {
+    menuBar.updateWhenScrollView(scrollView)
+  }
+  
+  func didEndScrollWithIndex(index: IndexPath) {
+    menuBar.updateWhenFinishScrollAtIndex(index)
+  }
+}
+
+@available(iOS 9.0, *)
+extension LAMenuView: LAMenuBarDelegate {
+  
+  func didSelectItemAt(indexPath: Int) {
+    menuContentContainer?.updateWhenSelectItemAtIndex(indexPath)
   }
 }

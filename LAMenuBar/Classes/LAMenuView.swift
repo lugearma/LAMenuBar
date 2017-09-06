@@ -26,30 +26,29 @@ public class LAMenuView: UIView {
     }
   }
   
-  lazy var menuBar: LAMenuBar = {
+  fileprivate lazy var menuBar: LAMenuBar = {
     let mb = LAMenuBar()
     
     return mb
   }()
   
+  fileprivate weak var delegate: LAMenuViewDelegate?
   fileprivate var menuContentContainer: LAMenuContentContainer?
   private var numberOfSections: Int?
-  
-  public weak var delegate: LAMenuViewDelegate?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupContainer()
   }
   
+  required public init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   public override func didMoveToSuperview() {
     super.didMoveToSuperview()
     
     setupMenuBar()
-  }
-  
-  required public init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
   
   public func configuration(delegate: LAMenuViewDelegate) {

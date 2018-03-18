@@ -8,13 +8,12 @@
 
 import Foundation
 
-public final class LAMenuContentContainerCell: UICollectionViewCell {
+final class LAMenuContentContainerCell: UICollectionViewCell {
   
   static let identifier = "LAMenuContentContainerCell"
   
   func configuration(with container: UIView) {
     self.addSubview(container)
-    
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: container)
     self.addConstraintsWithFormat(format: "V:|[v0]|", view: container)
   }

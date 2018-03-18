@@ -14,9 +14,7 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     view.backgroundColor = .gray
-    
     configurateNavigationBar()
     setupMenuView()
   }
@@ -42,16 +40,19 @@ class ViewController: UIViewController {
     let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views)
     
     // Create LAMenuView and add to your view
-    let menuView = LAMenuView()
+    let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+    let menuView = LAMenuView(frame: frame, model: model)
+    menuView.translatesAutoresizingMaskIntoConstraints = false
     
     // Set the model
-    menuView.model = model
-    menuView.configuration(delegate: self)
+    menuView.delegate = self
   
     view.addSubview(menuView)
     
-    view.addConstraintsWithFormat(format: "H:|[v0]|", view: menuView)
-    view.addConstraintsWithFormat(format: "V:|[v0]|", view: menuView)
+    menuView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+    menuView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    menuView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+    menuView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
   }
   
   func configurateNavigationBar() {

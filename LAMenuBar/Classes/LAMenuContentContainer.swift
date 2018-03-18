@@ -7,29 +7,30 @@
 
 import Foundation
 
+//MARK: - LAMenuContentContainerDelegate
+
 protocol LAMenuContentContainerDelegate: class {
-  
   func didScroll(scrollView: UIScrollView)
   func didEndScrollWithIndex(index: IndexPath)
 }
 
-public final class LAMenuContentContainer: UICollectionView {
+// MARK: - LAMenuContentContainer
+
+final class LAMenuContentContainer: UICollectionView {
   
   weak var contentContainerDelegate: LAMenuContentContainerDelegate?
-  var views: [UIView]?
+  var views: [UIView]
   
-  override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+  init(frame: CGRect, model: LAMenuModel) {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    self.views = model.views
     super.init(frame: frame, collectionViewLayout: layout)
-    
     setupCollectionView()
   }
   
-  required public convenience init?(coder aDecoder: NSCoder) {
+  required convenience init?(coder aDecoder: NSCoder) {
     self.init(coder: aDecoder)
-  }
-  
-  func configuration(delegate: LAMenuContentContainerDelegate) {
-    self.contentContainerDelegate = delegate
   }
   
   private func setupCollectionView() {
@@ -46,52 +47,46 @@ public final class LAMenuContentContainer: UICollectionView {
   }
 }
 
-// MARK: UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 
 extension LAMenuContentContainer: UICollectionViewDataSource {
   
-  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return views?.count ?? 0
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return views.count
   }
   
-  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LAMenuContentContainerCell.identifier, for: indexPath) as? LAMenuContentContainerCell else { fatalError() }
-    
-    guard let view = views?[indexPath.row] else { fatalError() }
-    
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell: LAMenuContentContainerCell = collectionView.dequeCell(identifier: LAMenuContentContainerCell.identifier, indexPath: indexPath)
+    let view = views[indexPath.row]
     cell.configuration(with: view)
-    
     return cell
   }
 }
 
-// MARK: UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension LAMenuContentContainer: UICollectionViewDelegate {
   
-  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    // Call delegate
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     contentContainerDelegate?.didScroll(scrollView: scrollView)
   }
   
-  public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-  
+  func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     let row = Int(targetContentOffset.pointee.x / self.frame.width)
     let index = IndexPath(row: row, section: 0)
-
     contentContainerDelegate?.didEndScrollWithIndex(index: index)
   }
 }
 
-// MARK: UICollectionViewDelegateFlowLayout
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension LAMenuContentContainer: UICollectionViewDelegateFlowLayout {
   
-  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(width: self.frame.width, height: self.frame.height)
   }
   
-  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }
 }

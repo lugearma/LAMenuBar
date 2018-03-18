@@ -8,56 +8,58 @@
 
 import UIKit
 
-public final class MenuBarCell: UICollectionViewCell {
+// MARK: - MenuBarCellModel
+
+struct MenuBarCellModel {
+  let colorWhenSelected: UIColor
+  let colorWhenDiselected: UIColor
+  let image: UIImage
+  let cellIndex: Int
+}
+
+// MARK: - MenuBarCell
+
+final class MenuBarCell: UICollectionViewCell {
   
   static let identifier = "MenuCellIdentifier"
   
-  public var tintColorWhenSelected: UIColor?
-  public var tintColorWhenDiselected: UIColor?
+  var model: MenuBarCellModel?
+  let sectionIconImageView = UIImageView()
   
-  lazy var imageView: UIImageView = {
-    let imageView = UIImageView()
-    return imageView
-  }()
-  
-  public override var isHighlighted: Bool {
+  override var isHighlighted: Bool {
     didSet {
-      imageView.tintColor = isHighlighted ? tintColorWhenSelected ?? .black : tintColorWhenDiselected ?? .lightGray
+      sectionIconImageView.tintColor = isHighlighted ? model?.colorWhenSelected ?? .black : model?.colorWhenDiselected ?? .lightGray
     }
   }
   
-  public override var isSelected: Bool {
+  override var isSelected: Bool {
     didSet {
-      imageView.tintColor = isSelected ? tintColorWhenSelected ?? .black : tintColorWhenDiselected ?? .lightGray
+      sectionIconImageView.tintColor = isSelected ? model?.colorWhenSelected ?? .black : model?.colorWhenDiselected ?? .lightGray
     }
   }
   
-  public override init(frame: CGRect) {
+  override init(frame: CGRect) {
     super.init(frame: frame)
     setupViews()
   }
   
-  required public init?(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
   fileprivate func setupViews() {
-    addSubview(imageView)
-    addConstraintsWithFormat(format: "H:[v0(28)]", view: imageView)
-    addConstraintsWithFormat(format: "V:[v0(28)]", view: imageView)
-    addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-    addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+    addSubview(sectionIconImageView)
+    addConstraintsWithFormat(format: "H:[v0(28)]", view: sectionIconImageView)
+    addConstraintsWithFormat(format: "V:[v0(28)]", view: sectionIconImageView)
+    addConstraint(NSLayoutConstraint(item: sectionIconImageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
+    addConstraint(NSLayoutConstraint(item: sectionIconImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
   }
   
-  func configurate(for image: UIImage, tintColorWhenSelected: UIColor?, tintColorWhenDiselected: UIColor?, index: Int) {
-    
-    imageView.image = image.withRenderingMode(.alwaysTemplate)
-    self.tintColorWhenSelected = tintColorWhenSelected
-    self.tintColorWhenDiselected = tintColorWhenDiselected
-    
-    // Paint the first cell
-    if index == 0 {
-      imageView.tintColor = tintColorWhenSelected
+  func configure() {
+    tintColor = model?.colorWhenDiselected
+    sectionIconImageView.image = model?.image.withRenderingMode(.alwaysTemplate)
+    if model?.cellIndex == 0 {
+      sectionIconImageView.tintColor = model?.colorWhenSelected
     }
   }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class LAMenuContentContainerCell: UICollectionViewCell {
+final class LAMenuContentContainerCell: UICollectionViewCell {
   
   static let identifier = "LAMenuContentContainerCell"
   

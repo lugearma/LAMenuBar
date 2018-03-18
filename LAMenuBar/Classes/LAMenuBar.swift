@@ -13,21 +13,18 @@ protocol LAMenuBarDelegate: class {
 }
 
 @available(iOS 9.0, *)
-public final class LAMenuBar: UIView {
+final class LAMenuBar: UIView {
   
-  public var images: [UIImage?]?
-  public var model: LAMenuModel?
-  
-  fileprivate weak var delegate: LAMenuBarDelegate?
+  fileprivate var model: LAMenuModel
+  weak var delegate: LAMenuBarDelegate?
   fileprivate var leftAnchorContraint: NSLayoutConstraint?
   
-  fileprivate lazy var collectionView: UICollectionView = {
+  fileprivate lazy var sectionsBarView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     let selectedIndexPath = IndexPath(row: 0, section: 0)
-    
+    collectionView.translatesAutoresizingMaskIntoConstraints = false
     collectionView.backgroundColor = .white
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -36,49 +33,57 @@ public final class LAMenuBar: UIView {
     return collectionView
   }()
   
-  public override func didMoveToSuperview() {
+  private lazy var sectionIndicatorBar: UIView = {
+    let view = UIView()
+    view.backgroundColor = self.model.sectionIndicatorBarColor
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
+  init(frame: CGRect, model: LAMenuModel) {
+    self.model = model
+    super.init(frame: frame)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func didMoveToSuperview() {
     super.didMoveToSuperview()
     setupView()
-    setHorizontalBar()
+    setupSectionIndicatorBar()
   }
   
-  func configuration(delegate: LAMenuBarDelegate) {
-    self.delegate = delegate
-  }
-  
-  private func setHorizontalBar() {
-    let horizontalBarView = UIView()
-    horizontalBarView.backgroundColor = model?.barColor
-    horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
-    addSubview(horizontalBarView)
+  private func setupSectionIndicatorBar() {
+    addSubview(sectionIndicatorBar)
+    leftAnchorContraint = sectionIndicatorBar.leftAnchor.constraint(equalTo: leftAnchor)
+    let bottomAnchorContraint = sectionIndicatorBar.bottomAnchor.constraint(equalTo: bottomAnchor)
+    let anchorConstraintForBotton = sectionIndicatorBar.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/CGFloat(model.sections))
+    let anchorConstraintForHeight = sectionIndicatorBar.heightAnchor.constraint(equalToConstant: CGFloat(model.sections))
     
-    guard let sections = model?.sections else { fatalError() }
-    
-    leftAnchorContraint = horizontalBarView.leftAnchor.constraint(equalTo: self.leftAnchor)
-    let bottomAnchorContraint = horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-    let anchorConstraintForBotton = horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/CGFloat(sections))
-    let anchorConstraintForHeight = horizontalBarView.heightAnchor.constraint(equalToConstant: CGFloat(sections))
-    
-    guard let leftAnchorContraint = leftAnchorContraint else { fatalError() }
+    guard let leftAnchorContraint = leftAnchorContraint else {
+      preconditionFailure()
+    }
     
     NSLayoutConstraint.activate([leftAnchorContraint, bottomAnchorContraint, anchorConstraintForBotton, anchorConstraintForHeight])
   }
   
   private func setupView() {
-    addSubview(collectionView)
-    collectionView.backgroundColor = model?.backgroundColor ?? .white
-    addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)
-    addConstraintsWithFormat(format: "V:|[v0(50)]", view: collectionView)
+    addSubview(sectionsBarView)
+    sectionsBarView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    sectionsBarView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    sectionsBarView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+    sectionsBarView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
   }
   
   func updateWhenScrollView(_ scrollView: UIScrollView) {
-    guard let sections = model?.sections else { fatalError() }
-    
-    self.leftAnchorContraint?.constant = scrollView.contentOffset.x / CGFloat(sections)
+    let sections = model.sections
+    leftAnchorContraint?.constant = scrollView.contentOffset.x / CGFloat(sections)
   }
   
   func updateWhenFinishScrollAtIndex(_ index: IndexPath) {
-    self.collectionView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
+    self.sectionsBarView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
   }
 }
 
@@ -87,28 +92,24 @@ public final class LAMenuBar: UIView {
 @available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDataSource {
   
-  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
-    guard let sections = model?.sections else {
-      preconditionFailure()
-    }
-    
-    return sections
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return model.sections
   }
   
-  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else {
-      preconditionFailure()
-    }
-    
-    guard let image = images?[indexPath.row] else {
-      preconditionFailure()
-    }
-    cell.configurate(for: image, tintColorWhenSelected: model?.tintColorWhenSelected, tintColorWhenDiselected: model?.tintColorWhenDiselected, index: indexPath.item)
-    cell.tintColor = model?.tintColorWhenDiselected
-    
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell: MenuBarCell = collectionView.dequeCell(identifier: MenuBarCell.identifier, indexPath: indexPath)
+    let imageForCell = iconImageForCellAt(indexPath)
+    let cellModel = MenuBarCellModel(colorWhenSelected: model.colorWhenSelected, colorWhenDiselected: model.colorWhenDiselected, image: imageForCell, cellIndex: indexPath.item)
+    cell.model = cellModel
+    cell.configure()
     return cell
+  }
+  
+  private func iconImageForCellAt(_ indexPath: IndexPath) -> UIImage {
+    guard let image = model.images[indexPath.item] else {
+      preconditionFailure("Can not load image for cell")
+    }
+    return image
   }
 }
 
@@ -117,16 +118,13 @@ extension LAMenuBar: UICollectionViewDataSource {
 @available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   
-  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    guard let sections = model?.sections else {
-      fatalError()
-    }
-    
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let sections = model.sections
     let width = frame.width / CGFloat(sections)
     return CGSize(width: width, height: frame.height)
   }
   
-  public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }
 }
@@ -136,7 +134,7 @@ extension LAMenuBar: UICollectionViewDelegateFlowLayout {
 @available(iOS 9.0, *)
 extension LAMenuBar: UICollectionViewDelegate {
   
-  public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let index = IndexPath(item: indexPath.item, section: 0)
     delegate?.didSelectItemAt(indexPath: index)
   }

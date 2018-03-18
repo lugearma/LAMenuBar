@@ -7,81 +7,74 @@
 
 import UIKit
 
+// MARK: - LAMenuViewDelegate
+
 @available(iOS 9.0, *)
 public protocol LAMenuViewDelegate: class {
-  
   func menuView(_ view: LAMenuView, didScrollWithIndex index: IndexPath)
   func menuView(_ view: LAMenuView, didSelectMenuItemAtIndex index: IndexPath)
 }
 
+// MARK: - LAMenuView
+
 @available(iOS 9.0, *)
 public class LAMenuView: UIView {
 
-  public var model: LAMenuModel? {
-    didSet {
-      guard let menuContentContainer = menuContentContainer, let model = model else { fatalError("Can not load model") }
-      
-      menuContentContainer.views = model.views
-      menuBar.images = model.images
+  public weak var delegate: LAMenuViewDelegate?
+  private var numberOfSections: Int?
+  private var _model: LAMenuModel?
+  private var model: LAMenuModel {
+    guard let model = _model else {
+      preconditionFailure("Can not load model")
     }
+    return model
   }
   
-  lazy var menuBar: LAMenuBar = {
-    let mb = LAMenuBar()
-    
-    return mb
+  fileprivate lazy var containerStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.axis = .vertical
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.addArrangedSubview(self.menuBar)
+    self.menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    stackView.addArrangedSubview(self.menuContentContainer)
+    return stackView
   }()
   
-  fileprivate var menuContentContainer: LAMenuContentContainer?
-  private var numberOfSections: Int?
+  fileprivate lazy var menuBar: LAMenuBar = {
+    let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 50)
+    let menuBar = LAMenuBar(frame: frame, model: self.model)
+    menuBar.translatesAutoresizingMaskIntoConstraints = false
+    menuBar.delegate = self
+    return menuBar
+  }()
   
-  public weak var delegate: LAMenuViewDelegate?
+  fileprivate lazy var menuContentContainer: LAMenuContentContainer = {
+    let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+    let menuContentContainer = LAMenuContentContainer(frame: frame, model: self.model)
+    menuContentContainer.contentContainerDelegate = self
+    return menuContentContainer
+  }()
   
-  override init(frame: CGRect) {
+  public init(frame: CGRect, model: LAMenuModel) {
     super.init(frame: frame)
-    setupContainer()
-  }
-  
-  public override func didMoveToSuperview() {
-    super.didMoveToSuperview()
-    
-    setupMenuBar()
+    self._model = model
+    setupViews()
   }
   
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  public func configuration(delegate: LAMenuViewDelegate) {
-    self.delegate = delegate
-  }
-  
-  private func setupContainer() {
-    
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    
-    menuContentContainer = LAMenuContentContainer(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), collectionViewLayout: layout)
-    
-    if let menuContentContainer = menuContentContainer {
-      menuContentContainer.configuration(delegate: self)
-      menuBar.configuration(delegate: self)
-      
-      self.addSubview(menuContentContainer)
-      
-      self.addConstraintsWithFormat(format: "H:|[v0]|", view: menuContentContainer)
-      self.addConstraintsWithFormat(format: "V:|-\(50)-[v0]|", view: menuContentContainer)
-    }
-  }
-  
-  private func setupMenuBar() {
-    menuBar.model = model
-    self.addSubview(menuBar)
-    
-    self.addConstraintsWithFormat(format: "H:|[v0]|", view: menuBar)
-    self.addConstraintsWithFormat(format: "V:|[v0(50)]", view: menuBar)
+  private func setupViews() {
+    addSubview(containerStackView)
+    containerStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    containerStackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+    containerStackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
   }
 }
+
+// MARK: - LAMenuContentContainerDelegate
 
 @available(iOS 9.0, *)
 extension LAMenuView: LAMenuContentContainerDelegate {
@@ -96,11 +89,13 @@ extension LAMenuView: LAMenuContentContainerDelegate {
   }
 }
 
+// MARK: - LAMenuBarDelegate
+
 @available(iOS 9.0, *)
 extension LAMenuView: LAMenuBarDelegate {
   
   func didSelectItemAt(indexPath: IndexPath) {
-    menuContentContainer?.updateWhenSelectItemAtIndex(indexPath)
+    menuContentContainer.updateWhenSelectItemAtIndex(indexPath)
     delegate?.menuView(self, didSelectMenuItemAtIndex: indexPath)
   }
 }

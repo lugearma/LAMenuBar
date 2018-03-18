@@ -37,7 +37,13 @@ class ViewController: UIViewController {
     let views = [fV, sV, tV, foV]
     
     // Create a model which has the information to present
-    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views)
+    let images = [
+      UIImage(named: "home"),
+      UIImage(named: "trending"),
+      UIImage(named: "subscriptions"),
+      UIImage(named: "account")
+    ]
+    let model = LAMenuModel(images: images, backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views, isCurrentSectionBarHidden: false)
     
     // Create LAMenuView and add to your view
     let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)

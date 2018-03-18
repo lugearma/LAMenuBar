@@ -52,7 +52,9 @@ final class LAMenuBar: UIView {
   override func didMoveToSuperview() {
     super.didMoveToSuperview()
     setupView()
-    setupSectionIndicatorBar()
+    if !model.isCurrentSectionBarHidden {
+      setupSectionIndicatorBar()
+    }
   }
   
   private func setupSectionIndicatorBar() {

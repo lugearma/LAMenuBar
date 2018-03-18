@@ -21,14 +21,7 @@ public protocol LAMenuViewDelegate: class {
 public class LAMenuView: UIView {
 
   public weak var delegate: LAMenuViewDelegate?
-  private var numberOfSections: Int?
-  private var _model: LAMenuModel?
-  private var model: LAMenuModel {
-    guard let model = _model else {
-      preconditionFailure("Can not load model")
-    }
-    return model
-  }
+  private var model: LAMenuModel
   
   fileprivate lazy var containerStackView: UIStackView = {
     let stackView = UIStackView()
@@ -56,8 +49,8 @@ public class LAMenuView: UIView {
   }()
   
   public init(frame: CGRect, model: LAMenuModel) {
+    self.model = model
     super.init(frame: frame)
-    self._model = model
     setupViews()
   }
   

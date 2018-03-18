@@ -60,7 +60,7 @@ final class LAMenuBar: UIView {
     leftAnchorContraint = sectionIndicatorBar.leftAnchor.constraint(equalTo: leftAnchor)
     let bottomAnchorContraint = sectionIndicatorBar.bottomAnchor.constraint(equalTo: bottomAnchor)
     let anchorConstraintForBotton = sectionIndicatorBar.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/CGFloat(model.sections))
-    let anchorConstraintForHeight = sectionIndicatorBar.heightAnchor.constraint(equalToConstant: CGFloat(model.sections))
+    let anchorConstraintForHeight = sectionIndicatorBar.heightAnchor.constraint(equalToConstant: 4)
     
     guard let leftAnchorContraint = leftAnchorContraint else {
       preconditionFailure()

@@ -43,10 +43,8 @@ public final class MenuBarCell: UICollectionViewCell {
   
   fileprivate func setupViews() {
     addSubview(imageView)
-    
     addConstraintsWithFormat(format: "H:[v0(28)]", view: imageView)
     addConstraintsWithFormat(format: "V:[v0(28)]", view: imageView)
-    
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
     addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
   }
@@ -58,6 +56,8 @@ public final class MenuBarCell: UICollectionViewCell {
     self.tintColorWhenDiselected = tintColorWhenDiselected
     
     // Paint the first cell
-    if index == 0 { imageView.tintColor = tintColorWhenSelected }
+    if index == 0 {
+      imageView.tintColor = tintColorWhenSelected
+    }
   }
 }

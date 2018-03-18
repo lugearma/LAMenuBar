@@ -9,7 +9,6 @@
 import UIKit
 
 protocol LAMenuBarDelegate: class {
-  
   func didSelectItemAt(indexPath: IndexPath)
 }
 
@@ -39,7 +38,6 @@ public final class LAMenuBar: UIView {
   
   public override func didMoveToSuperview() {
     super.didMoveToSuperview()
-    
     setupView()
     setHorizontalBar()
   }
@@ -48,10 +46,8 @@ public final class LAMenuBar: UIView {
     self.delegate = delegate
   }
   
-  fileprivate func setHorizontalBar() {
-    
+  private func setHorizontalBar() {
     let horizontalBarView = UIView()
-    
     horizontalBarView.backgroundColor = model?.barColor
     horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
     addSubview(horizontalBarView)
@@ -68,10 +64,9 @@ public final class LAMenuBar: UIView {
     NSLayoutConstraint.activate([leftAnchorContraint, bottomAnchorContraint, anchorConstraintForBotton, anchorConstraintForHeight])
   }
   
-  fileprivate func setupView() {
+  private func setupView() {
     addSubview(collectionView)
     collectionView.backgroundColor = model?.backgroundColor ?? .white
-    
     addConstraintsWithFormat(format: "H:|[v0]|", view: collectionView)
     addConstraintsWithFormat(format: "V:|[v0(50)]", view: collectionView)
   }
@@ -94,18 +89,23 @@ extension LAMenuBar: UICollectionViewDataSource {
   
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    guard let sections = model?.sections else { fatalError() }
+    guard let sections = model?.sections else {
+      preconditionFailure()
+    }
     
     return sections
   }
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else { fatalError() }
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCell.identifier, for: indexPath) as? MenuBarCell else {
+      preconditionFailure()
+    }
     
-    guard let image = images?[indexPath.row] else { fatalError() }
+    guard let image = images?[indexPath.row] else {
+      preconditionFailure()
+    }
     cell.configurate(for: image, tintColorWhenSelected: model?.tintColorWhenSelected, tintColorWhenDiselected: model?.tintColorWhenDiselected, index: indexPath.item)
-    
     cell.tintColor = model?.tintColorWhenDiselected
     
     return cell
@@ -118,11 +118,11 @@ extension LAMenuBar: UICollectionViewDataSource {
 extension LAMenuBar: UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    
-    guard let sections = model?.sections else { fatalError() }
+    guard let sections = model?.sections else {
+      fatalError()
+    }
     
     let width = frame.width / CGFloat(sections)
-    
     return CGSize(width: width, height: frame.height)
   }
   
@@ -137,7 +137,6 @@ extension LAMenuBar: UICollectionViewDelegateFlowLayout {
 extension LAMenuBar: UICollectionViewDelegate {
   
   public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
     let index = IndexPath(item: indexPath.item, section: 0)
     delegate?.didSelectItemAt(indexPath: index)
   }

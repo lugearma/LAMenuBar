@@ -8,7 +8,6 @@
 import Foundation
 
 protocol LAMenuContentContainerDelegate: class {
-  
   func didScroll(scrollView: UIScrollView)
   func didEndScrollWithIndex(index: IndexPath)
 }
@@ -20,7 +19,6 @@ public final class LAMenuContentContainer: UICollectionView {
   
   override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
-    
     setupCollectionView()
   }
   
@@ -55,9 +53,13 @@ extension LAMenuContentContainer: UICollectionViewDataSource {
   }
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LAMenuContentContainerCell.identifier, for: indexPath) as? LAMenuContentContainerCell else { fatalError() }
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LAMenuContentContainerCell.identifier, for: indexPath) as? LAMenuContentContainerCell else {
+      fatalError()
+    }
     
-    guard let view = views?[indexPath.row] else { fatalError() }
+    guard let view = views?[indexPath.row] else {
+      fatalError()
+    }
     
     cell.configuration(with: view)
     
@@ -70,15 +72,12 @@ extension LAMenuContentContainer: UICollectionViewDataSource {
 extension LAMenuContentContainer: UICollectionViewDelegate {
   
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    // Call delegate
     contentContainerDelegate?.didScroll(scrollView: scrollView)
   }
   
   public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-  
     let row = Int(targetContentOffset.pointee.x / self.frame.width)
     let index = IndexPath(row: row, section: 0)
-
     contentContainerDelegate?.didEndScrollWithIndex(index: index)
   }
 }

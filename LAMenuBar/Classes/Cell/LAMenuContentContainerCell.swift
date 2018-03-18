@@ -14,7 +14,6 @@ public final class LAMenuContentContainerCell: UICollectionViewCell {
   
   func configuration(with container: UIView) {
     self.addSubview(container)
-    
     self.addConstraintsWithFormat(format: "H:|[v0]|", view: container)
     self.addConstraintsWithFormat(format: "V:|[v0]|", view: container)
   }

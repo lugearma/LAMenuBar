@@ -21,23 +21,22 @@ class ViewController: UIViewController {
   
   private func setupMenuView() {
     
-    // Create array of views that are going to be presented in each section
-    let fV = UIView()
-    fV.backgroundColor = UIColor(red: 150/255, green: 206/255, blue: 180/255, alpha: 1.0)
-    
-    let sV = UIView()
-    sV.backgroundColor = UIColor(red: 255/255, green: 238/255, blue: 173/255, alpha: 1.0)
-    
-    let tV = UIView()
-    tV.backgroundColor = UIColor(red: 255/255, green: 111/255, blue: 105/255, alpha: 1.0)
-    
-    let foV = UIView()
-    foV.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 92/255, alpha: 1.0)
-    
-    let views = [fV, sV, tV, foV]
+    // Create array of view controller that are going to be presented in each section
+    let viewControllers = [
+      FirstViewController(),
+      SecondViewController(),
+      ThirdViewController(),
+      FourthViewController()
+    ]
     
     // Create a model which has the information to present
-    let model = LAMenuModel(images: [UIImage(named: "home"), UIImage(named: "trending"), UIImage(named: "subscriptions"), UIImage(named: "account")], backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views)
+    let images = [
+      UIImage(named: "home"),
+      UIImage(named: "trending"),
+      UIImage(named: "subscriptions"),
+      UIImage(named: "account")
+    ]
+    let model = LAMenuModel(images: images, backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, viewControllers: viewControllers, isCurrentSectionBarHidden: false, menuBarPosition: .top)
     
     // Create LAMenuView and add to your view
     let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)

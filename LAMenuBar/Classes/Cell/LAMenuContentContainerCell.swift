@@ -8,13 +8,22 @@
 
 import Foundation
 
+protocol LAMenuContentContainerCellDelegate: class {
+  func didAddViewController(viewController: UIViewController)
+}
+
 final class LAMenuContentContainerCell: UICollectionViewCell {
   
   static let identifier = "LAMenuContentContainerCell"
+  weak var delegate: LAMenuContentContainerCellDelegate?
+  var viewController: UIViewController?
   
-  func configuration(with container: UIView) {
-    self.addSubview(container)
-    self.addConstraintsWithFormat(format: "H:|[v0]|", view: container)
-    self.addConstraintsWithFormat(format: "V:|[v0]|", view: container)
+  func configuration(with container: UIViewController, delegate: LAMenuContentContainerCellDelegate? = nil) {
+    self.delegate = delegate
+    viewController = container
+    addSubview(container.view)
+    addConstraintsWithFormat(format: "H:|[v0]|", view: container.view)
+    addConstraintsWithFormat(format: "V:|[v0]|", view: container.view)
+    delegate?.didAddViewController(viewController: container)
   }
 }

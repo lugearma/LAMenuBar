@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - MenuBarPosition
+
+public enum MenuBarPosition {
+  case top
+  case bottom
+}
+
 // MARK: - LAMenuViewDelegate
 
 @available(iOS 9.0, *)
@@ -21,22 +28,22 @@ public protocol LAMenuViewDelegate: class {
 public class LAMenuView: UIView {
 
   public weak var delegate: LAMenuViewDelegate?
-  private var numberOfSections: Int?
-  private var _model: LAMenuModel?
-  private var model: LAMenuModel {
-    guard let model = _model else {
-      preconditionFailure("Can not load model")
+  private var model: LAMenuModel
+  
+  var stackSubviews: (UIView, UIView) {
+    switch model.menuBarPosition {
+    case .top:
+      return (menuBar, menuContentContainer)
+    case .bottom:
+      return (menuContentContainer, menuBar)
     }
-    return model
   }
   
   fileprivate lazy var containerStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .vertical
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.addArrangedSubview(self.menuBar)
-    self.menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    stackView.addArrangedSubview(self.menuContentContainer)
+    stackView.addArrangedSubviews(self.stackSubviews.0, self.stackSubviews.1)
     return stackView
   }()
   
@@ -44,6 +51,7 @@ public class LAMenuView: UIView {
     let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 50)
     let menuBar = LAMenuBar(frame: frame, model: self.model)
     menuBar.translatesAutoresizingMaskIntoConstraints = false
+    menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
     menuBar.delegate = self
     return menuBar
   }()
@@ -56,8 +64,8 @@ public class LAMenuView: UIView {
   }()
   
   public init(frame: CGRect, model: LAMenuModel) {
+    self.model = model
     super.init(frame: frame)
-    self._model = model
     setupViews()
   }
   
@@ -78,7 +86,7 @@ public class LAMenuView: UIView {
 
 @available(iOS 9.0, *)
 extension LAMenuView: LAMenuContentContainerDelegate {
-  
+
   func didScroll(scrollView: UIScrollView) {
     menuBar.updateWhenScrollView(scrollView)
   }
@@ -86,6 +94,14 @@ extension LAMenuView: LAMenuContentContainerDelegate {
   func didEndScrollWithIndex(index: IndexPath) {
     menuBar.updateWhenFinishScrollAtIndex(index)
     delegate?.menuView(self, didScrollWithIndex: index)
+  }
+  
+  func didAddViewController(viewController: UIViewController) {
+    guard let parentViewController = delegate as? UIViewController else {
+      preconditionFailure()
+    }
+    parentViewController.addChildViewController(viewController)
+    viewController.didMove(toParentViewController: parentViewController)
   }
 }
 

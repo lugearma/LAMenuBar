@@ -12,6 +12,7 @@ import Foundation
 protocol LAMenuContentContainerDelegate: class {
   func didScroll(scrollView: UIScrollView)
   func didEndScrollWithIndex(index: IndexPath)
+  func didAddViewController(viewController: UIViewController)
 }
 
 // MARK: - LAMenuContentContainer
@@ -19,12 +20,12 @@ protocol LAMenuContentContainerDelegate: class {
 final class LAMenuContentContainer: UICollectionView {
   
   weak var contentContainerDelegate: LAMenuContentContainerDelegate?
-  var views: [UIView]
+  var model: LAMenuModel
   
   init(frame: CGRect, model: LAMenuModel) {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
-    self.views = model.views
+    self.model = model
     super.init(frame: frame, collectionViewLayout: layout)
     setupCollectionView()
   }
@@ -52,13 +53,13 @@ final class LAMenuContentContainer: UICollectionView {
 extension LAMenuContentContainer: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return views.count
+    return model.viewControllers.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell: LAMenuContentContainerCell = collectionView.dequeCell(identifier: LAMenuContentContainerCell.identifier, indexPath: indexPath)
-    let view = views[indexPath.row]
-    cell.configuration(with: view)
+    let view = model.viewControllers[indexPath.row]
+    cell.configuration(with: view, delegate: self)
     return cell
   }
 }
@@ -88,5 +89,14 @@ extension LAMenuContentContainer: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
+  }
+}
+
+// MARK: - LAMenuContentContainerCellDelegate
+
+extension LAMenuContentContainer: LAMenuContentContainerCellDelegate {
+  
+  func didAddViewController(viewController: UIViewController) {
+    contentContainerDelegate?.didAddViewController(viewController: viewController)
   }
 }

@@ -16,6 +16,7 @@
 		82A8DB541999E343EDF87A7D /* Pods_LAMenuBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A104FB40A45977FED37A6D9 /* Pods_LAMenuBar_Example.framework */; };
 		8585FB175ADBA7D9CDFD80E0 /* Pods_LAMenuBar_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E947BF49A5646F79C6516C97 /* Pods_LAMenuBar_Tests.framework */; };
 		92294A9A1EED913100D09883 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92294A991EED913100D09883 /* Extensions.swift */; };
+		9274DCEA205F3A64006BF32B /* ExampleViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9274DCE9205F3A64006BF32B /* ExampleViewControllers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		8A104FB40A45977FED37A6D9 /* Pods_LAMenuBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LAMenuBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92294A991EED913100D09883 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Helpers/Extensions.swift; sourceTree = "<group>"; };
+		9274DCE9205F3A64006BF32B /* ExampleViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewControllers.swift; sourceTree = "<group>"; };
 		9870D16BB1161AB252F54587 /* LAMenuBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LAMenuBar.podspec; path = ../LAMenuBar.podspec; sourceTree = "<group>"; };
 		9C4044EAB5AABC8BA877A280 /* Pods-LAMenuBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LAMenuBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LAMenuBar_Tests/Pods-LAMenuBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E947BF49A5646F79C6516C97 /* Pods_LAMenuBar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LAMenuBar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +104,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				9274DCE9205F3A64006BF32B /* ExampleViewControllers.swift */,
 			);
 			name = "Example for LAMenuBar";
 			path = LAMenuBar;
@@ -375,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				9274DCEA205F3A64006BF32B /* ExampleViewControllers.swift in Sources */,
 				92294A9A1EED913100D09883 /* Extensions.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);

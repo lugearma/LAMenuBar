@@ -86,7 +86,7 @@ public class LAMenuView: UIView {
 
 @available(iOS 9.0, *)
 extension LAMenuView: LAMenuContentContainerDelegate {
-  
+
   func didScroll(scrollView: UIScrollView) {
     menuBar.updateWhenScrollView(scrollView)
   }
@@ -94,6 +94,14 @@ extension LAMenuView: LAMenuContentContainerDelegate {
   func didEndScrollWithIndex(index: IndexPath) {
     menuBar.updateWhenFinishScrollAtIndex(index)
     delegate?.menuView(self, didScrollWithIndex: index)
+  }
+  
+  func didAddViewController(viewController: UIViewController) {
+    guard let parentViewController = delegate as? UIViewController else {
+      preconditionFailure()
+    }
+    parentViewController.addChildViewController(viewController)
+    viewController.didMove(toParentViewController: parentViewController)
   }
 }
 

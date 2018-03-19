@@ -43,7 +43,7 @@ class ViewController: UIViewController {
       UIImage(named: "subscriptions"),
       UIImage(named: "account")
     ]
-    let model = LAMenuModel(images: images, backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views, isCurrentSectionBarHidden: false)
+    let model = LAMenuModel(images: images, backgroundColor: .white, barColor: .black, tintColorWhenSelected: .black, tintColorWhenDiselected: .lightGray, views: views, isCurrentSectionBarHidden: false, menuBarPosition: .top)
     
     // Create LAMenuView and add to your view
     let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)

@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - MenuBarPosition
+
+public enum MenuBarPosition {
+  case top
+  case bottom
+}
+
 // MARK: - LAMenuViewDelegate
 
 @available(iOS 9.0, *)
@@ -23,13 +30,20 @@ public class LAMenuView: UIView {
   public weak var delegate: LAMenuViewDelegate?
   private var model: LAMenuModel
   
+  var stackSubviews: (UIView, UIView) {
+    switch model.menuBarPosition {
+    case .top:
+      return (menuBar, menuContentContainer)
+    case .bottom:
+      return (menuContentContainer, menuBar)
+    }
+  }
+  
   fileprivate lazy var containerStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .vertical
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.addArrangedSubview(self.menuBar)
-    self.menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    stackView.addArrangedSubview(self.menuContentContainer)
+    stackView.addArrangedSubviews(self.stackSubviews.0, self.stackSubviews.1)
     return stackView
   }()
   
@@ -37,6 +51,7 @@ public class LAMenuView: UIView {
     let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 50)
     let menuBar = LAMenuBar(frame: frame, model: self.model)
     menuBar.translatesAutoresizingMaskIntoConstraints = false
+    menuBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
     menuBar.delegate = self
     return menuBar
   }()

@@ -18,8 +18,9 @@ public struct LAMenuModel {
   public let sections: Int
   public let views: [UIView]
   public let isCurrentSectionBarHidden: Bool
+  public let menuBarPosition: MenuBarPosition
   
-  public init(images: [UIImage?], backgroundColor: UIColor, barColor: UIColor, tintColorWhenSelected: UIColor, tintColorWhenDiselected: UIColor, views: [UIView], isCurrentSectionBarHidden: Bool) {
+  public init(images: [UIImage?], backgroundColor: UIColor, barColor: UIColor, tintColorWhenSelected: UIColor, tintColorWhenDiselected: UIColor, views: [UIView], isCurrentSectionBarHidden: Bool, menuBarPosition: MenuBarPosition) {
     self.images = images
     self.backgroundColor = backgroundColor
     self.sectionIndicatorBarColor = barColor
@@ -28,5 +29,6 @@ public struct LAMenuModel {
     self.sections = views.count
     self.views = views
     self.isCurrentSectionBarHidden = isCurrentSectionBarHidden
+    self.menuBarPosition = menuBarPosition
   }
 }
